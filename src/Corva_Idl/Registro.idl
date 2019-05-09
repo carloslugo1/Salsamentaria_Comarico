@@ -1,0 +1,20 @@
+module RegistroApp{
+    interface Registro{
+        boolean insertarRegistro(in wstring nombres, in wstring apellidos, in long tipo, in wstring direccion,
+        in long identificacion, in wstring telefono, in wstring email, in wstring rol, in wstring contrasena);
+
+        boolean actualizarRegistro(in wstring nombres, in wstring apellidos, in long tipo, in wstring direccion,
+        in long identificacion, in wstring telefono, in wstring email, in wstring rol, in wstring contrasena); 
+
+        boolean eliminarRegistro(in long identificacion);
+        
+        wstring consultarRegistro(in long identificacion);
+       
+        oneway void shutdown();
+        
+    };
+
+};
+
+
+
