@@ -1,0 +1,18 @@
+module Sucursales {
+    interface Sucursal{
+        boolean insertarSucursal(in long codigo,in wstring ciudad, in long telefono, in wstring direccion );
+        
+        boolean actualizarSucursal(in long codigo,in wstring ciudad, in long telefono, in wstring direccion ); 
+
+        boolean eliminarSucursal(in long Codigo);
+        
+        wstring consultarSucursal(in long Codigo);
+       
+        oneway void shutdown();
+        
+    };
+
+};
+
+
+

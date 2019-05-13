@@ -1,0 +1,18 @@
+module Conductores {
+    interface Conductor{
+        boolean insertarConductor(in long id, in wstring nombre, in long telefono, in wstring placa );
+        
+        boolean actualizarConductor(in long id, in wstring nombre, in long telefono, in wstring placa );
+
+        boolean eliminarConductor(in long id);
+        
+        wstring consultarConductor(in long id);
+       
+        oneway void shutdown();
+        
+    };
+
+};
+
+
+

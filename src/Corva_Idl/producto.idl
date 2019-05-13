@@ -1,0 +1,16 @@
+
+module Producto {
+    interface Productos{
+        boolean insertarProveedor(in long id, in wstring nombre, in long precio, in long id_proveedor );
+        
+        boolean actualizarProveedor(in long id, in wstring nombre, in long precio, in long id_proveedor ); 
+
+        boolean eliminarProveedor(in long id);
+        
+        wstring consultarProveedor(in long id);
+       
+        oneway void shutdown();
+        
+    };
+
+};
