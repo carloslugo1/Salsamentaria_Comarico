@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  * @author USER
  */
 public class Login extends javax.swing.JFrame {
-     Conexion.Conexion conexion = new Conexion.Conexion();
+
     /**
      * Creates new form Login
      */
@@ -46,8 +46,8 @@ public class Login extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         txtPass = new javax.swing.JPasswordField();
         jSeparator2 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnIngreso = new javax.swing.JButton();
+        btnRegistro = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
 
@@ -149,20 +149,25 @@ public class Login extends javax.swing.JFrame {
         jSeparator2.setBackground(new java.awt.Color(255, 153, 0));
         jSeparator2.setForeground(new java.awt.Color(255, 153, 0));
 
-        jButton1.setBackground(new java.awt.Color(255, 153, 51));
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/checkmark_15px.png"))); // NOI18N
-        jButton1.setText("INGRESAR");
-        jButton1.setBorder(null);
-
-        jButton2.setBackground(new java.awt.Color(255, 153, 51));
-        jButton2.setForeground(new java.awt.Color(0, 0, 0));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/hand_cursor_15px.png"))); // NOI18N
-        jButton2.setText("REGISTRAR");
-        jButton2.setBorder(null);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnIngreso.setBackground(new java.awt.Color(255, 153, 51));
+        btnIngreso.setForeground(new java.awt.Color(0, 0, 0));
+        btnIngreso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/checkmark_15px.png"))); // NOI18N
+        btnIngreso.setText("INGRESAR");
+        btnIngreso.setBorder(null);
+        btnIngreso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnIngresoActionPerformed(evt);
+            }
+        });
+
+        btnRegistro.setBackground(new java.awt.Color(255, 153, 51));
+        btnRegistro.setForeground(new java.awt.Color(0, 0, 0));
+        btnRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/hand_cursor_15px.png"))); // NOI18N
+        btnRegistro.setText("REGISTRAR");
+        btnRegistro.setBorder(null);
+        btnRegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistroActionPerformed(evt);
             }
         });
 
@@ -218,9 +223,9 @@ public class Login extends javax.swing.JFrame {
                                 .addComponent(jLabel10)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btnIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(55, 55, 55))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
@@ -261,8 +266,8 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34))
         );
 
@@ -304,31 +309,53 @@ public class Login extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jLabel9MouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroActionPerformed
+        
+    }//GEN-LAST:event_btnRegistroActionPerformed
+
+    private void btnIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresoActionPerformed
         // TODO add your handling code here:
-              Conexion.Conexion conexion = new Conexion.Conexion();
-            int resultado =0;
-         try {
-             String usuario = txtUser.getText();
-             String pass =  String.valueOf(txtPass.getPassword());
-             String sql ="select * from user where userario='"+usuario+"', and ,clave='"+pass+"' ";
-             Statement st= conexion.conex.createStatement();
-             ResultSet rs=st.executeQuery(sql);
-             if (rs.next()) {
-                 resultado = 1;
-                 if (resultado==1) {
-                    Registro objRegistro = new Registro();
+        //Defino las variables
+        String usuario;
+        String password;
+
+        //Valido los campos vacios
+        if(txtUser.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Digite el usuario");
+            txtUser.requestFocus();
+            return;
+        }
+
+        if(txtPass.getPassword().length == 0){
+            JOptionPane.showMessageDialog(null, "Digite la contraseña");
+            txtPass.requestFocus();
+            return;
+        }
+        //Asigno los elementos gráficos a las variables
+        usuario = txtUser.getText();
+        char cadena[] = txtPass.getPassword();
+        password = new String(cadena);
+
+        // Proceso
+        // Validar el usuario
+        if(usuario.equals("admin") && password.equals("123")){
+            // Iniciamos sesión
+            Registro_Cliente objRegistro = new Registro_Cliente();
             objRegistro.setVisible(true);
 
+
             this.setVisible(false);
-                 }else{
-                     JOptionPane.showMessageDialog(null, "Error de user o pass vuleva a intentar");
-                 }
-             }
-             
-         } catch (Exception e) {
-         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+
+        }
+        else{
+            // Imprimo nombre de usuario o password incorrecto
+            JOptionPane.showMessageDialog(null, "nombre de usuario o password incorrecto");
+
+            txtUser.setText("");
+            txtPass.setText("");
+            txtUser.requestFocus();
+        }
+    }//GEN-LAST:event_btnIngresoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -366,8 +393,8 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnIngreso;
+    private javax.swing.JButton btnRegistro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

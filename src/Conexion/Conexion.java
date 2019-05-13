@@ -18,7 +18,7 @@ public class Conexion {
     
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conex=DriverManager.getConnection("jdbc:mysql://localhost/user","root","");
+            conex=DriverManager.getConnection("jdbc:mysql://localhost/salsamentaria","root","");
             System.out.println("se realizó la conexión correctamente");
         } catch (Exception e) {
             System.out.println("No es Posible realizar la conexión"+e.getMessage());
