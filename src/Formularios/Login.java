@@ -5,12 +5,16 @@
  */
 package Formularios;
 
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author USER
  */
 public class Login extends javax.swing.JFrame {
-
+     Conexion.Conexion conexion = new Conexion.Conexion();
     /**
      * Creates new form Login
      */
@@ -37,10 +41,10 @@ public class Login extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtUser = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel8 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txtPass = new javax.swing.JPasswordField();
         jSeparator2 = new javax.swing.JSeparator();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -127,9 +131,9 @@ public class Login extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Usuario :");
 
-        jTextField1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField1.setBorder(null);
+        txtUser.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        txtUser.setForeground(new java.awt.Color(0, 0, 0));
+        txtUser.setBorder(null);
 
         jSeparator1.setBackground(new java.awt.Color(255, 153, 0));
         jSeparator1.setForeground(new java.awt.Color(255, 153, 0));
@@ -138,9 +142,9 @@ public class Login extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Contraseña :");
 
-        jPasswordField1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jPasswordField1.setForeground(new java.awt.Color(0, 0, 0));
-        jPasswordField1.setBorder(null);
+        txtPass.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        txtPass.setForeground(new java.awt.Color(0, 0, 0));
+        txtPass.setBorder(null);
 
         jSeparator2.setBackground(new java.awt.Color(255, 153, 0));
         jSeparator2.setForeground(new java.awt.Color(255, 153, 0));
@@ -202,9 +206,9 @@ public class Login extends javax.swing.JFrame {
                         .addGap(34, 34, 34)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel7)
-                            .addComponent(jTextField1)
+                            .addComponent(txtUser)
                             .addComponent(jLabel8)
-                            .addComponent(jPasswordField1)
+                            .addComponent(txtPass)
                             .addComponent(jSeparator2)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -238,7 +242,7 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addGap(32, 32, 32)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -249,7 +253,7 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addGap(27, 27, 27)
-                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -302,10 +306,28 @@ public class Login extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-            Registro objRegistro = new Registro();
+              Conexion.Conexion conexion = new Conexion.Conexion();
+            int resultado =0;
+         try {
+             String usuario = txtUser.getText();
+             String pass =  String.valueOf(txtPass.getPassword());
+             String sql ="select * from user where userario='"+usuario+"', and ,clave='"+pass+"' ";
+             Statement st= conexion.conex.createStatement();
+             ResultSet rs=st.executeQuery(sql);
+             if (rs.next()) {
+                 resultado = 1;
+                 if (resultado==1) {
+                    Registro objRegistro = new Registro();
             objRegistro.setVisible(true);
 
             this.setVisible(false);
+                 }else{
+                     JOptionPane.showMessageDialog(null, "Error de user o pass vuleva a intentar");
+                 }
+             }
+             
+         } catch (Exception e) {
+         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -358,9 +380,9 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField txtPass;
+    private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }
