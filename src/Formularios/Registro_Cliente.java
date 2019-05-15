@@ -130,6 +130,11 @@ public class Registro_Cliente extends javax.swing.JFrame {
         });
 
         tblDatos.setModel(modelotabla);
+        tblDatos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDatosMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblDatos);
 
         btnRegistrar.setBackground(new java.awt.Color(255, 153, 51));
@@ -210,7 +215,7 @@ public class Registro_Cliente extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))
-                        .addGap(27, 27, 27)
+                        .addGap(19, 19, 19)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtapellido, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8))
@@ -221,7 +226,7 @@ public class Registro_Cliente extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtdireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -391,6 +396,20 @@ public class Registro_Cliente extends javax.swing.JFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {                                            
       
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void tblDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDatosMouseClicked
+        // TODO add your handling code here:
+         // Defino el modelo para el JTable
+        DefaultTableModel modelo = (DefaultTableModel) tblDatos.getModel();
+       
+        // Asigno el elemento seleccionado de la tabla a los respectivos campos del formulario
+        txtnit.setText((String) modelo.getValueAt(tblDatos.getSelectedRow(), 0));
+        txtnombre.setText((String) modelo.getValueAt(tblDatos.getSelectedRow(), 1));
+        txtapellido.setText((String) modelo.getValueAt(tblDatos.getSelectedRow(), 2));
+        txttelefono.setText((String) modelo.getValueAt(tblDatos.getSelectedRow(), 3));
+        txtdireccion.setText((String) modelo.getValueAt(tblDatos.getSelectedRow(), 4));
+        
+    }//GEN-LAST:event_tblDatosMouseClicked
 
     /**
      * @param args the command line arguments

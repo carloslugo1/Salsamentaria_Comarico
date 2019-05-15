@@ -138,7 +138,7 @@
                               <Component id="txtnombre" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                               <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="txtapellido" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                               <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -153,7 +153,7 @@
                       <Component id="txtdireccion" min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="8" max="32767" attributes="0"/>
+                  <EmptySpace pref="16" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnGuardar" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                       <Component id="btnRegistrar" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
@@ -297,6 +297,9 @@
                   <Connection code="modelotabla" type="code"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblDatosMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
