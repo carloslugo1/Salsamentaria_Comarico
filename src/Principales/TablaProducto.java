@@ -1,22 +1,21 @@
 package Principales;
-
-import Clientes.ClientePOA;
-import Conexion.Conexion;
-import java.sql.ResultSet;
+import Producto.* ;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import Conexion.Conexion;
+import java.sql.ResultSet;
 
 /**
  *
- * @author User0
+ * @author User
  */
-public class Cliente extends ClientePOA{
-    Conexion conexion = new Conexion();
-   @Override
-    public boolean insertarCliente(int codigoCliente, String Nit, String nombre, int telefono, String direccion) {
-        boolean resultado = false;
+public class TablaProducto extends ProductosPOA{
+           Conexion conexion = new Conexion();
+    @Override
+    public boolean insertarProveedor(int id, String nombre, int precio, int id_proveedor) {
+ boolean resultado = false;
         try {
-            String sql = "insert into cliente(CodigoCliente,Nit,nombre,telefono,Direccion) values ('"+codigoCliente+"','"+Nit+"','"+nombre+"','"+telefono+"','"+direccion+"')";
+            String sql = "insert into productos(id,nombre,precio,id_proveedor) values ('"+id+"','"+nombre+"','"+precio+"','"+id_proveedor+"')";
             conexion.conectar();
             Statement st = conexion.conex.createStatement();
             int valor = st.executeUpdate(sql);
@@ -30,17 +29,20 @@ public class Cliente extends ClientePOA{
         } catch (Exception e) {
            JOptionPane.showMessageDialog(null, "Error al insertar. "+e.getMessage());
         }        
-        return resultado;
+        return resultado; 
+
     }
-   @Override
-    public boolean actualizarCliente(int codigoCliente, String Nit, String nombre, int telefono, String direccion) {
+
+    @Override
+    public boolean actualizarProveedor(int id, String nombre, int precio, int id_proveedor) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-   @Override
-    public boolean eliminarCliente(int Cod_cliente) {
-         boolean resultado = false;
+
+    @Override
+    public boolean eliminarProveedor(int id) {
+ boolean resultado = false;
         try {
-            String sql = "Delete from cliente where Codigocliente = "+Cod_cliente;
+            String sql = "DELETE FROM productos WHERE id ="+id;
             conexion.conectar();
             Statement st = conexion.conex.createStatement();
             int valor = st.executeUpdate(sql);
@@ -54,21 +56,23 @@ public class Cliente extends ClientePOA{
            JOptionPane.showMessageDialog(null, "Error al eliminar. "+e.getMessage());
         }        
         return resultado;
+
     }
-   @Override
-    public String consultarCliente(int Cod_cliente) {
+
+    @Override
+    public String consultarProveedor(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-   @Override
+
+    @Override
     public void shutdown() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-       
-    public ResultSet cargarCliente (){
+    public ResultSet cargaProducto (){
          ResultSet resultado = null;
          try {
-            String sql = "select Codigocliente,Nit, nombre, telefono, Direccion from cliente";
+            String sql = "select id, nombre, precio, id_proveedor from productos";
             conexion.conectar();
             Statement st = conexion.conex.createStatement();
             resultado = st.executeQuery(sql);
@@ -76,9 +80,20 @@ public class Cliente extends ClientePOA{
             JOptionPane.showMessageDialog(null, "Error" + e.getMessage());
         }
          return resultado;
-}
-   
-
     
+   }
+    
+     public ResultSet consultarEstado(){
+        ResultSet resultado = null;
+        try {
+            String sentenciaSql = "Select Cod_proveedor, nombre from proveedor";
+            conexion.conectar();
+            Statement st = conexion.conex.createStatement();
+            resultado = st.executeQuery(sentenciaSql);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error al consultar: "+ e.getMessage());
+        }
+            return resultado;
+    }
     
 }

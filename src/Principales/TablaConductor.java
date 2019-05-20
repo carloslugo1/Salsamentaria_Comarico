@@ -1,6 +1,7 @@
+
 package Principales;
 
-import Clientes.ClientePOA;
+import Conductores.ConductorPOA;
 import Conexion.Conexion;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -8,15 +9,16 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author User0
+ * @author User
  */
-public class Cliente extends ClientePOA{
+public class TablaConductor extends ConductorPOA{
     Conexion conexion = new Conexion();
-   @Override
-    public boolean insertarCliente(int codigoCliente, String Nit, String nombre, int telefono, String direccion) {
+
+    @Override
+    public boolean insertarConductor(int id, String nombre, int telefono, String placa) {
         boolean resultado = false;
         try {
-            String sql = "insert into cliente(CodigoCliente,Nit,nombre,telefono,Direccion) values ('"+codigoCliente+"','"+Nit+"','"+nombre+"','"+telefono+"','"+direccion+"')";
+            String sql = "insert into conductor(id,nombre,telefono,placa) values ('"+id+"','"+nombre+"','"+telefono+"','"+placa+"')";
             conexion.conectar();
             Statement st = conexion.conex.createStatement();
             int valor = st.executeUpdate(sql);
@@ -32,15 +34,17 @@ public class Cliente extends ClientePOA{
         }        
         return resultado;
     }
-   @Override
-    public boolean actualizarCliente(int codigoCliente, String Nit, String nombre, int telefono, String direccion) {
+
+    @Override
+    public boolean actualizarConductor(int id, String nombre, int telefono, String placa) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-   @Override
-    public boolean eliminarCliente(int Cod_cliente) {
-         boolean resultado = false;
+
+    @Override
+    public boolean eliminarConductor(int id) {
+       boolean resultado = false;
         try {
-            String sql = "Delete from cliente where Codigocliente = "+Cod_cliente;
+            String sql = "Delete from cliente where id = "+id;
             conexion.conectar();
             Statement st = conexion.conex.createStatement();
             int valor = st.executeUpdate(sql);
@@ -55,20 +59,21 @@ public class Cliente extends ClientePOA{
         }        
         return resultado;
     }
-   @Override
-    public String consultarCliente(int Cod_cliente) {
+    
+
+    @Override
+    public String consultarConductor(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-   @Override
+
+    @Override
     public void shutdown() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-       
-    public ResultSet cargarCliente (){
+    public ResultSet cargarconductor (){
          ResultSet resultado = null;
          try {
-            String sql = "select Codigocliente,Nit, nombre, telefono, Direccion from cliente";
+            String sql = "select id,nombre,telefono,placa";
             conexion.conectar();
             Statement st = conexion.conex.createStatement();
             resultado = st.executeQuery(sql);
@@ -76,9 +81,7 @@ public class Cliente extends ClientePOA{
             JOptionPane.showMessageDialog(null, "Error" + e.getMessage());
         }
          return resultado;
+    }
 }
-   
 
-    
-    
-}
+

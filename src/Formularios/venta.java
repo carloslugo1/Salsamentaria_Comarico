@@ -4,20 +4,27 @@
  * and open the template in the editor.
  */
 package Formularios;
-
+import Conexion.Conexion;
+import Principales.*;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author USER
  */
-public class venta extends javax.swing.JFrame {
+public class venta extends javax.swing.JFrame  {
 
     /**
      * Creates new form Productos
      */
+    
     public venta() {
         initComponents();
+     
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,7 +53,7 @@ public class venta extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblproducto = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -97,8 +104,6 @@ public class venta extends javax.swing.JFrame {
         lblValorProducto.setText("Valor Producto");
 
         btnBuscarCliente.setText("Buscar");
-
-        cmbProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
