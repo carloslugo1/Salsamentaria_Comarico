@@ -6,7 +6,7 @@ import Conexion.Conexion;
 import java.sql.ResultSet;
 /**
  *
- * @author User
+ * @author Felipe
  */
 public  class TablaProveedor extends ProveedorPOA {
          Conexion conexion = new Conexion();

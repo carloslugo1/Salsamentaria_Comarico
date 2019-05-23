@@ -7,9 +7,9 @@ import java.sql.ResultSet;
 
 /**
  *
- * @author User
+ * @author Felipe
  */
-public class TablaProducto extends ProductosPOA{
+public class Producto extends ProductosPOA{
            Conexion conexion = new Conexion();
     @Override
     public boolean insertarProveedor(int id, String nombre, int precio, int id_proveedor) {
@@ -95,5 +95,8 @@ public class TablaProducto extends ProductosPOA{
         }
             return resultado;
     }
+     
+     
+     
     
 }

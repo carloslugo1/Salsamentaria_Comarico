@@ -4,18 +4,50 @@
  * and open the template in the editor.
  */
 package Formularios;
+import java.sql.ResultSet;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import Principales.*;
 
 /**
  *
  * @author USER
  */
 public class RegistoProductos extends   javax.swing.JFrame {
-
+    private DefaultTableModel modelotable;
+     private  DefaultComboBoxModel modelocombo;
     /**
      * Creates new form Productos
      */
     public RegistoProductos() {
         initComponents();
+         modelotable = new DefaultTableModel(null, getColumn());
+         modelocombo = new DefaultComboBoxModel(new String [] {});
+        initComponents();
+        //Instancion al clase productos
+        Principales.Producto objTablaProducto = new Principales.Producto();
+        
+        //ResultSet
+        ResultSet estados;
+        //Instancio la clase estados
+        estados = objTablaProducto.consultarEstado();
+        try {
+            //Recorremos el resultado generado por la consulta
+            while(estados.next()){
+                //Con el metodo addElement vamos a agregar cada resultado al comboBox
+                modelocombo.addElement(new Estado(estados.getInt("Cod_proveedor"), estados.getString("nombre")));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Consulta no hecha"+e.getMessage());
+        }
+  
+    }
+    
+          
+         private String[] getColumn(){
+        String columnas[] = new String[]{"id","nombre","precio","id_proveedor"};
+        return columnas;
     }
 
     /**
@@ -31,19 +63,19 @@ public class RegistoProductos extends   javax.swing.JFrame {
         txtidproducto = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         lblidproducto = new javax.swing.JLabel();
-        txtdescripcionp = new javax.swing.JTextField();
         txtnombreproducto = new javax.swing.JTextField();
         lblNombreproducto = new javax.swing.JLabel();
-        lbldescripcionp = new javax.swing.JLabel();
         lblpreciop = new javax.swing.JLabel();
         lblprovedor = new javax.swing.JLabel();
         txtpreciop = new javax.swing.JTextField();
-        cmbproveedor = new javax.swing.JComboBox<>();
+        cboEstado = new javax.swing.JComboBox<>();
+        btnAdicionar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblproducto = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -59,19 +91,12 @@ public class RegistoProductos extends   javax.swing.JFrame {
         lblidproducto.setForeground(new java.awt.Color(0, 0, 0));
         lblidproducto.setText("ID Producto");
 
-        txtdescripcionp.setBackground(new java.awt.Color(255, 255, 255));
-        txtdescripcionp.setForeground(new java.awt.Color(0, 0, 0));
-        txtdescripcionp.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 153, 0)));
-
         txtnombreproducto.setBackground(new java.awt.Color(255, 255, 255));
         txtnombreproducto.setForeground(new java.awt.Color(0, 0, 0));
         txtnombreproducto.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 153, 0)));
 
         lblNombreproducto.setForeground(new java.awt.Color(0, 0, 0));
         lblNombreproducto.setText("Nombre del producto ");
-
-        lbldescripcionp.setForeground(new java.awt.Color(0, 0, 0));
-        lbldescripcionp.setText("Descripcion del producto");
 
         lblpreciop.setForeground(new java.awt.Color(0, 0, 0));
         lblpreciop.setText("Precio del Prodcuto");
@@ -83,10 +108,17 @@ public class RegistoProductos extends   javax.swing.JFrame {
         txtpreciop.setForeground(new java.awt.Color(0, 0, 0));
         txtpreciop.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 153, 0)));
 
-        cmbproveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cmbproveedor.addActionListener(new java.awt.event.ActionListener() {
+        cboEstado.setModel(modelocombo);
+        cboEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbproveedorActionPerformed(evt);
+                cboEstadoActionPerformed(evt);
+            }
+        });
+
+        btnAdicionar.setText("Guardar");
+        btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarActionPerformed(evt);
             }
         });
 
@@ -105,18 +137,17 @@ public class RegistoProductos extends   javax.swing.JFrame {
                             .addComponent(lblNombreproducto)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbldescripcionp)
                                     .addComponent(lblidproducto)
                                     .addComponent(lblpreciop)
-                                    .addComponent(lblprovedor))
-                                .addGap(18, 18, 18)
+                                    .addComponent(lblprovedor)
+                                    .addComponent(btnAdicionar))
+                                .addGap(48, 48, 48)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtnombreproducto, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
-                                    .addComponent(txtidproducto, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
-                                    .addComponent(txtdescripcionp, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
-                                    .addComponent(txtpreciop, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
-                                    .addComponent(cmbproveedor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-                .addContainerGap(29, Short.MAX_VALUE))
+                                    .addComponent(cboEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtnombreproducto, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                                    .addComponent(txtidproducto, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                                    .addComponent(txtpreciop))))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,19 +162,17 @@ public class RegistoProductos extends   javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtnombreproducto, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblNombreproducto))
-                .addGap(18, 18, 18)
+                .addGap(26, 26, 26)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtpreciop, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblpreciop))
+                .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtdescripcionp, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbldescripcionp))
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblpreciop)
-                    .addComponent(txtpreciop, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbproveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblprovedor))
-                .addContainerGap(281, Short.MAX_VALUE))
+                .addGap(82, 82, 82)
+                .addComponent(btnAdicionar)
+                .addContainerGap(200, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 600));
@@ -151,7 +180,16 @@ public class RegistoProductos extends   javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 153, 51));
 
         tblproducto.setForeground(new java.awt.Color(255, 255, 255));
+        tblproducto.setModel(modelotable);
         jScrollPane1.setViewportView(tblproducto);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/back_100px.png"))); // NOI18N
+        jLabel2.setText("Atras");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -159,7 +197,9 @@ public class RegistoProductos extends   javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -167,7 +207,9 @@ public class RegistoProductos extends   javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(191, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, 580, 600));
@@ -175,9 +217,77 @@ public class RegistoProductos extends   javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cmbproveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbproveedorActionPerformed
+    private void cboEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboEstadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbproveedorActionPerformed
+    }//GEN-LAST:event_cboEstadoActionPerformed
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        // TODO add your handling code here:
+            Menu objRegistro = new Menu();
+            objRegistro.setVisible(true);
+            this.setVisible(false);
+    }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+
+        //Validar los campos vac{ios
+            if(txtidproducto.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Ingrese id del proctud");
+                txtidproducto.requestFocus();
+                return;
+            }
+
+            if(txtnombreproducto.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Ingrese Nombre del Producto");
+                txtnombreproducto.requestFocus();
+                return;
+            }
+
+            if(txtpreciop.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Ingrese Precio del producto");
+                txtpreciop.requestFocus();
+                return;
+            }
+
+            //Creamos un objeto
+            Estado objEstado = (Estado) cboEstado.getSelectedItem();
+            //Asignamos el atributo del objeto seleccionado en el combo.
+            int estado = objEstado.getCod_proveedor(); //Ya aquí tenemos el id del estado seleccionado.
+
+            if (objEstado == null) {
+                JOptionPane.showMessageDialog(null, "Ingrese Proveedor");
+                return;
+            }
+
+            //Instancio la clase
+            Principales.Producto objTablaProducto = new Principales.Producto();
+
+            //Declaro variables
+            int id;
+            String nombre;
+            int id_estado = estado;
+            int precio;
+
+            //Asigno los valores del formualrio
+            id = Integer.parseInt(txtidproducto.getText());
+            nombre = txtnombreproducto.getText();
+            precio = Integer.parseInt(txtpreciop.getText());
+            System.out.println(id_estado);
+            //Envio los datos
+            boolean resultado = objTablaProducto.insertarProveedor(id,nombre,precio,id_estado);
+            if(resultado == true){
+                JOptionPane.showMessageDialog(null, "Registro exitoso");
+            }else{
+                JOptionPane.showMessageDialog(null, "Registro no exitoso");
+
+            }
+
+            //Limpio los campos
+            txtidproducto.setText("");
+            txtnombreproducto.setText("");
+            txtpreciop.setText("");
+            //txtTelefono.setText("");
+    }//GEN-LAST:event_btnAdicionarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,18 +326,18 @@ public class RegistoProductos extends   javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cmbproveedor;
+    private javax.swing.JButton btnAdicionar;
+    private javax.swing.JComboBox<String> cboEstado;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblNombreproducto;
-    private javax.swing.JLabel lbldescripcionp;
     private javax.swing.JLabel lblidproducto;
     private javax.swing.JLabel lblpreciop;
     private javax.swing.JLabel lblprovedor;
     private javax.swing.JTable tblproducto;
-    private javax.swing.JTextField txtdescripcionp;
     private javax.swing.JTextField txtidproducto;
     private javax.swing.JTextField txtnombreproducto;
     private javax.swing.JTextField txtpreciop;

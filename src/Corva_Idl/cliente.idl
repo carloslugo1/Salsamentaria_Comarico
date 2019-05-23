@@ -1,8 +1,8 @@
 module Clientes {
     interface Cliente{
-        boolean insertarCliente(in long codigoCliente,in wstring Nit, in wstring nombre, in long telefono, in wstring direccion );
+        boolean insertarCliente(in long codigoCliente,in long Nit, in wstring nombre, in wstring apellidos, in wstring telefono, in wstring correo );
         
-        boolean actualizarCliente(in long codigoCliente,in wstring Nit, in wstring nombre, in long telefono, in wstring direccion ); 
+        boolean actualizarCliente(in long codigoCliente,in long Nit, in wstring nombre, in wstring apellidos, in wstring telefono, in wstring correo );
 
         boolean eliminarCliente(in long Cod_cliente);
         

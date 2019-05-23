@@ -8,11 +8,12 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author User0
+ * @author Felipe
  */
 public class Cliente extends ClientePOA{
     Conexion conexion = new Conexion();
-   @Override
+
+
     public boolean insertarCliente(int codigoCliente, String Nit, String nombre, int telefono, String direccion) {
         boolean resultado = false;
         try {
@@ -32,11 +33,13 @@ public class Cliente extends ClientePOA{
         }        
         return resultado;
     }
-   @Override
+
+
     public boolean actualizarCliente(int codigoCliente, String Nit, String nombre, int telefono, String direccion) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-   @Override
+
+    @Override
     public boolean eliminarCliente(int Cod_cliente) {
          boolean resultado = false;
         try {
@@ -55,17 +58,17 @@ public class Cliente extends ClientePOA{
         }        
         return resultado;
     }
-   @Override
+
+    @Override
     public String consultarCliente(int Cod_cliente) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-   @Override
+
+    @Override
     public void shutdown() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-       
-    public ResultSet cargarCliente (){
+public ResultSet cargarCliente (){
          ResultSet resultado = null;
          try {
             String sql = "select Codigocliente,Nit, nombre, telefono, Direccion from cliente";
@@ -77,7 +80,16 @@ public class Cliente extends ClientePOA{
         }
          return resultado;
 }
-   
+
+    @Override
+    public boolean insertarCliente(int codigoCliente, int Nit, String nombre, String apellidos, String telefono, String correo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean actualizarCliente(int codigoCliente, int Nit, String nombre, String apellidos, String telefono, String correo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     
     
